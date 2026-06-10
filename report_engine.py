@@ -57,7 +57,7 @@ orders["Created At"] = pd.to_datetime(
     # SOLD LAST 30 DAYS
     # =========================
 
-    last_30 = datetime.now() - timedelta(days=30)
+    last_30 = pd.Timestamp.utcnow() - pd.Timedelta(days=30)
 
     orders30 = orders[
         orders["Created At"] >= last_30
@@ -104,7 +104,7 @@ orders["Created At"] = pd.to_datetime(
     # PEAK WEEK SALES
     # =========================
 
-    last_90 = datetime.now() - timedelta(days=90)
+    last_90 = pd.Timestamp.utcnow() - pd.Timedelta(days=90)
 
     orders90 = orders[
         orders["Created At"] >= last_90
