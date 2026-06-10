@@ -37,7 +37,6 @@ st.divider()
 
 if st.button("🚀 Generate Report", use_container_width=True):
 
-```
 if products_file is None:
     st.error("Please upload Products.xlsx")
     st.stop()
@@ -71,4 +70,3 @@ try:
 except Exception as e:
 
     st.error(f"Error: {str(e)}")
-```
