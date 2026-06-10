@@ -50,11 +50,11 @@ if "Payment: Status" in orders.columns:
 
     # end if
 
-orders["Created At"] = pd.to_datetime(
-    orders["Created At"],
-    errors="coerce",
-    utc=True
-)
+    orders["Created At"] = pd.to_datetime(
+        orders["Created At"],
+        errors="coerce",
+        utc=True
+    )
     # =========================
     # SOLD LAST 30 DAYS
     # =========================
