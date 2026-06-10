@@ -1,6 +1,5 @@
 import pandas as pd
 import numpy as np
-from datetime import datetime, timedelta
 
 
 def generate_report(products_file, orders_file, opening_stock_file=None):
@@ -39,22 +38,21 @@ def generate_report(products_file, orders_file, opening_stock_file=None):
         orders["Line: Product ID"].notna()
     ].copy()
 
-if "Payment: Status" in orders.columns:
+    if "Payment: Status" in orders.columns:
 
-    orders = orders[
-        orders["Payment: Status"]
-        .astype(str)
-        .str.lower()
-        != "voided"
-    ]
-
-    # end if
+        orders = orders[
+            orders["Payment: Status"]
+            .astype(str)
+            .str.lower()
+            != "voided"
+        ]
 
     orders["Created At"] = pd.to_datetime(
         orders["Created At"],
         errors="coerce",
         utc=True
     )
+
     # =========================
     # SOLD LAST 30 DAYS
     # =========================
@@ -82,10 +80,9 @@ if "Payment: Status" in orders.columns:
         how="left"
     )
 
-    report["Sold Last 30 Days"] = (
-        report["Sold Last 30 Days"]
-        .fillna(0)
-    )
+    report["Sold Last 30 Days"] = report[
+        "Sold Last 30 Days"
+    ].fillna(0)
 
     # =========================
     # DAILY AVG SALES
@@ -97,8 +94,8 @@ if "Payment: Status" in orders.columns:
 
     report["Cover Days"] = np.where(
         report["Daily Average Sales"] > 0,
-        report["Current Stock"]
-        / report["Daily Average Sales"],
+        report["Current Stock"] /
+        report["Daily Average Sales"],
         9999
     )
 
@@ -145,15 +142,14 @@ if "Payment: Status" in orders.columns:
         how="left"
     )
 
-    report["Peak Week Sales"] = (
-        report["Peak Week Sales"]
-        .fillna(0)
-    )
+    report["Peak Week Sales"] = report[
+        "Peak Week Sales"
+    ].fillna(0)
 
     report["Cover Weeks"] = np.where(
         report["Peak Week Sales"] > 0,
-        report["Current Stock"]
-        / report["Peak Week Sales"],
+        report["Current Stock"] /
+        report["Peak Week Sales"],
         9999
     )
 
@@ -174,7 +170,7 @@ if "Payment: Status" in orders.columns:
     )
 
     # =========================
-    # REPORTS
+    # SHEETS
     # =========================
 
     full_inventory = report.sort_values(
