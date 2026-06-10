@@ -39,14 +39,16 @@ def generate_report(products_file, orders_file, opening_stock_file=None):
         orders["Line: Product ID"].notna()
     ].copy()
 
-    if "Payment: Status" in orders.columns:
+if "Payment: Status" in orders.columns:
 
-        orders = orders[
-            orders["Payment: Status"]
-            .astype(str)
-            .str.lower()
-            != "voided"
-        ]
+    orders = orders[
+        orders["Payment: Status"]
+        .astype(str)
+        .str.lower()
+        != "voided"
+    ]
+
+    # end if
 
 orders["Created At"] = pd.to_datetime(
     orders["Created At"],
