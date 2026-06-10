@@ -48,11 +48,11 @@ def generate_report(products_file, orders_file, opening_stock_file=None):
             != "voided"
         ]
 
-    orders["Created At"] = pd.to_datetime(
-        orders["Created At"],
-        errors="coerce"
-    )
-
+orders["Created At"] = pd.to_datetime(
+    orders["Created At"],
+    errors="coerce",
+    utc=True
+)
     # =========================
     # SOLD LAST 30 DAYS
     # =========================
